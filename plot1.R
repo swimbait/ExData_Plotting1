@@ -1,0 +1,13 @@
+dat<-read.table("household_power_consumption.txt", header = T, sep=";", stringsAsFactors = F)
+str(dat)
+d1<-as.POSIXct('2007-02-01')
+d2<-as.POSIXct('2007-02-02')
+Index<-as.POSIXct(dat$Date , format = '%d/%m/%Y')
+Index<-which(Index>=d1&Index<=d2)
+dat<-dat[Index,]
+str(dat)
+gc()
+dat$Global_active_power<-as.numeric(dat$Global_active_power)
+png("Plot1.PNG", width=480, height=480)
+hist(dat$Global_active_power, col="red", xlab="Global Active Power (kilowatts)", main="Global Active Power")
+dev.off()
